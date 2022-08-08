@@ -72,6 +72,8 @@
             this.topBox = new System.Windows.Forms.PictureBox();
             this.score = new System.Windows.Forms.Label();
             this.scoreInt = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lifeInt = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -520,7 +522,7 @@
             this.score.AutoSize = true;
             this.score.BackColor = System.Drawing.Color.Gray;
             this.score.Font = new System.Drawing.Font("Segoe UI", 20.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.score.Location = new System.Drawing.Point(360, 9);
+            this.score.Location = new System.Drawing.Point(16, 9);
             this.score.Name = "score";
             this.score.Size = new System.Drawing.Size(156, 65);
             this.score.TabIndex = 63;
@@ -531,11 +533,33 @@
             this.scoreInt.AutoSize = true;
             this.scoreInt.BackColor = System.Drawing.Color.Gray;
             this.scoreInt.Font = new System.Drawing.Font("Segoe UI", 20.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreInt.Location = new System.Drawing.Point(534, 9);
+            this.scoreInt.Location = new System.Drawing.Point(159, 9);
             this.scoreInt.Name = "scoreInt";
             this.scoreInt.Size = new System.Drawing.Size(54, 65);
             this.scoreInt.TabIndex = 64;
             this.scoreInt.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Gray;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(655, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(222, 65);
+            this.label1.TabIndex = 65;
+            this.label1.Text = "Lives left:";
+            // 
+            // lifeInt
+            // 
+            this.lifeInt.AutoSize = true;
+            this.lifeInt.BackColor = System.Drawing.Color.Gray;
+            this.lifeInt.Font = new System.Drawing.Font("Segoe UI", 20.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lifeInt.Location = new System.Drawing.Point(883, 9);
+            this.lifeInt.Name = "lifeInt";
+            this.lifeInt.Size = new System.Drawing.Size(54, 65);
+            this.lifeInt.TabIndex = 66;
+            this.lifeInt.Text = "3";
             // 
             // Form1
             // 
@@ -543,6 +567,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(978, 1157);
+            this.Controls.Add(this.lifeInt);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.scoreInt);
             this.Controls.Add(this.score);
             this.Controls.Add(this.topBox);
@@ -677,5 +703,7 @@
         private PictureBox topBox;
         private Label score;
         private Label scoreInt;
+        private Label label1;
+        private Label lifeInt;
     }
 }

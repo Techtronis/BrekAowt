@@ -6,9 +6,10 @@ namespace BrékAowt
         private int ballMoveY = 3;
         private int ballX;
         private int ballY;
-        private int boxCount = 36;
+        private int boxCount = 0;
         private bool gameOver = true;
         private int Score = 0;
+        private int lives;
         private string popUpText = "Press 'Space' to Start";
         int pX = 369;
         int pY = 1100;
@@ -22,6 +23,8 @@ namespace BrékAowt
             timer1.Interval = 5;
             timer1.Tick += timer1_Tick;
             timer1.Start();
+
+            Cursor.Hide();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,14 +37,18 @@ namespace BrékAowt
             
             if (e.KeyCode == Keys.Right) pX += 25;
             else if (e.KeyCode == Keys.Left) pX -= 25;
-
-            if (gameOver && e.KeyCode == Keys.Space) gameOver = false;
-
+            else if (gameOver && e.KeyCode == Keys.Space)
+            {
+                gameOver = false;
+                boxCount = 36;
+                lives = 3;
+            }
             paddle.Location = new Point(pX, paddle.Location.Y);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            Random randX = new Random();
             ballX = ball.Location.X;
             ballY = ball.Location.Y;
             int ballSize = 20;
@@ -55,21 +62,23 @@ namespace BrékAowt
                 }
                 else if (ballY + ballSize >= this.ClientSize.Height)
                 {
+                    lives--;
                     ballX = 476;
                     ballY = 751;
                     ballMoveX = 0;
-                    ballMoveY = -3;
+                    ballMoveY = 3;
                     pX = 369;
                     pY = 1100;
                 }
                 else if (ball.Bounds.IntersectsWith(paddle.Bounds))
                 {
+                    ballMoveX = randX.Next(-5, 5);
                     if (ballMoveX == 0) ballMoveX = -3;
-                    ballMoveY = -ballMoveY;
+                    ballMoveY = -3;
                 }
                 foreach (Control x in this.Controls)
                 {
-                    if (x is PictureBox && x.Tag == "pictureBox")
+                    if (x is PictureBox && x.Tag == "pictureBox" && gameOver == false)
                     {
                         if (ball.Bounds.IntersectsWith(x.Bounds))
                         {
@@ -77,12 +86,18 @@ namespace BrékAowt
                             Score++;
                             this.Controls.Remove(x);
                             ballMoveY = -ballMoveY;
+                            
                         }
+                    }
+                    else if (x is PictureBox && x.Tag == "pictureBox" && gameOver == true)
+                    {
+                        this.Controls.Add(x);
                     }
                 }
 
                 if (boxCount == 0)
                 {
+                    boxCount = -1;
                     gameOver = true;
                     ballX = 476;
                     ballY = 751;
@@ -95,13 +110,24 @@ namespace BrékAowt
 
                 popUpText = "";
                 popUp.Text = popUpText;
+                lifeInt.Text = Convert.ToString(lives);
                 scoreInt.Text = Convert.ToString(Score);
                 ball.Location = new Point(ballX, ballY);
-            } else if (gameOver && boxCount == 0)
+                if (lives == 0)
+                {
+                    gameOver = true;
+                    boxCount = -2;
+                }
+            } else if (gameOver && boxCount == -1)
             {
-                popUpText = "Oh no you lost.\nPress 'Space' to start again";
+                popUpText = "You won!\nPress 'Space' to start again";
+                popUp.Text = popUpText;
+            } else if (gameOver && boxCount == -2)
+            {
+                popUpText = "You lost!\nPress 'Space' to try again";
                 popUp.Text = popUpText;
             }
+            
         }
     }
 }
